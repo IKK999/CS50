@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+
+    {% for listing in listings %}
+        <a href="{% url 'listing' listing.id %}">
+            <div style="border: 1px solid black; position: relative; height: 35vh;">
+                <div style="position: absolute;">
+                    {% if listing.image_url %}
+                        <img src="{{ listing.image_url }}" alt="Image of {{ listing.title }}" style="height: 31vh; margin-top: 2vh; margin-left: 2vh;">
+                    {% endif %}
+                </div>
+                <div style="position: absolute; left: 40%; transform: translate(-50%, 50%); color: rgb(36, 36, 36);">
+                    <h3>{{ listing.title }}</h3>
+                    <h4>${{ listing.highest_bid }}</h4>
+                    <p>{{ listing.description }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}

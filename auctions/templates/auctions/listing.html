@@ -1,0 +1,100 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    
+    <!--Close the Auction-->
+    {% if user.is_authenticated and listing.listing_owner == user and listing.is_active %}
+        <form action="{% url 'close_auction' listing.id %}">
+            <input type="submit" value="Close Auction">
+        </form>
+    {% endif %}
+
+    <h2>Listing: {{ listing.title }}</h2>
+    <!--Watchlist Button-->
+    {% if user.is_authenticated %}
+        {% if listing in user.watchlisted.all %}
+        <a href="{% url 'change_watchlist' listing.id %}" style="display: block; width: 4vw; height: 2vh;">
+            <div style="background-color: grey; color: white; margin: 2px; padding: 2px; height: 2vh; width: 4vw; font-size: 6px; text-align: center; border-radius: 5px;">
+                <p>Un-Watchlist</p>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'change_watchlist' listing.id %}" style="display: block; width: 3vw; height: 2vh;">
+            <div style="background-color: grey; color: white; margin: 2px; padding: 2px; height: 2vh; width: 3vw; font-size: 6px; text-align: center; border-radius: 5px;">
+                <p>Watchlist</p>
+            </div>
+        </a>
+        {% endif %}
+    {% endif %}
+
+    <!--Listing Information-->
+    {% if listing.image_url != "" %}
+        <img src="{{ listing.image_url}}" alt="Image of {{ listing.title }}" style="height: 40vh; margin: 2px;">
+    {% endif %}
+    <p>{{ listing.description }}</p>
+    <h3>${{ listing.highest_bid }}</h3>
+
+    <!--Bidding-->
+    {% if listing.is_active %}
+        {% if listing.bid_leader == None %}
+            <p>{{ listing.bid_count }} bid(s) so far. Nobody's bid is the current bid. </p>
+        {% elif user.is_authenticated and listing.bid_leader == user %}
+            <p>{{ listing.bid_count }} bid(s) so far. Your bid is the current bid. </p>
+        {% else %}
+            <p>{{ listing.bid_count }} bid(s) so far. {{ listing.bid_leader }}'s bid is the current bid. </p>
+        {% endif %}
+        {% if message %}
+            <p style="font-size: 8px; margin-bottom: 5px;">{{ message }}</p>
+        {% endif %}
+        {% if user.is_authenticated and listing.listing_owner == user %}
+            <p style="color: red;">!You cannot bid on your own listing.</p>
+        {% elif user.is_authenticated %}
+            <form action="{% url 'submit_bid' listing.id %}" method="post">
+                {% csrf_token %}
+                <input type="float" name="bid" placeholder="Enter your bid" style="width: 25vw;">
+                <input type="submit" value="Submit Bid">
+            </form>
+        {% else %}
+            <p style="color: red;">!You must be logged in to bid on this item.</p>
+        {% endif %}
+    {% else %}
+        {% if listing.bid_leader == None %}
+            <p style="color: red;">Nobody won the auction.</p>
+        {% elif user.is_authenticated and listing.bid_leader == user %}
+            <p style="color: green;">Congratulations, you won this auction!</p>
+        {% else %}
+            <p style="color: blue;">{{ listing.bid_leader }} won this auction.</p>
+        {% endif %}
+    {% endif %}
+
+    <!--Details-->
+    <p></p>
+    <h4>Details</h4>
+    <ul>
+        <p>Listed by: {{ listing.listing_owner }}</p>
+        <p>Category: {{ listing.category }}</p>
+    </ul>
+
+    <!--Comments-->
+    <p></p>
+    <h5>Comments</h5>
+    {% if user.is_authenticated %}
+        {% if message1 %}
+            <p style="font-size: 8px; margin-bottom: 5px;">{{ message1 }}</p>
+        {% endif %}
+        <form action="{% url 'submit_comment' listing.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="comment" placeholder="Enter your comment" style="width: 25vw;">
+            <input type="submit" value="Submit Comment">
+        </form>
+    {% else %}
+        <p style="color: red;">!You must be logged in to comment on this item.</p>
+    {% endif %}
+    <p></p>
+    {% for comment in listing.get_comments %}
+        <div style="margin-left: 2%; margin-top: 3%;">
+            <h6>@{{ comment.commenters.first }}</h6>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
