@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Advanced Search</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <form>
+            <a href="index.html" class="pages"><button type="button">Google Search</button></a>
+        </form>
+        <br>
+        <h2>Advanced Search</h2>
+        <br>
+
+        <div class="advancedLine">
+        <h3>Find pages with...</h3>
+        <h4>To do this in the search box</h4>
+        </div>
+        
+        <div class="advancedLine">
+        <p>all these words:</p>
+        <input type="text" id="input1" class="criteria">
+        <p class="comments">Type the important words: <b>tricolor rat terrier</b></p>
+        </div>
+
+        <div class="advancedLine">
+        <p>this exact word or phrase:</p>
+        <input type="text" id="input2" class="criteria">
+        <p class="comments">Put exact words in quotes: <b>"rat terrier"</b></p>
+        </div>
+
+        <div class="advancedLine">
+        <p>any of these words:</p>
+        <input type="text" id="input3" class="criteria">
+        <p class="comments">Type <b>OR</b> between all the words you want: <b>minimature OR standard</b></p>
+        </div>
+
+        <div class="advancedLine">
+        <p>none of these words:</p>
+        <input type="text" id="input4" class="criteria">
+        <p class="comments">Put a minus sign just before words you don't want: <br><b>-rodent, -"Jack Russell"</b></p>
+        </div>
+        <form>
+            <button type="button" id="advancedSearch" onclick="AdvancedSearch()">Advanced Search</button>
+        </form>
+        <script src="script.js"></script>
+    </body>
+</html>

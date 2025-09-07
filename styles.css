@@ -1,0 +1,75 @@
+.pages {
+    float: right;
+    margin: 1px;
+}
+
+#mainSearch, #lucky, #imageSearch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#mainSearch {
+    transform: translate(-105%, 250%);
+}
+
+#lucky {
+    transform: translate(5%, 250%);
+}
+
+#imageSearch {
+    transform: translate(-50%, 250%);
+}
+
+#userInput {
+    font-size: 40px;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-size: 75px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+}
+
+h2 {
+    color: red;
+}
+
+.advancedLine {
+    display: flex;
+}
+
+.criteria {
+    position: absolute;
+    margin-top: 10px;
+    font-size: 25px;
+    left: 20%;
+    width: 40%;
+}
+
+.comments {
+    position: absolute;
+    left: 63%;
+    font-size: 14px;
+}
+
+h4 {
+    position: absolute;
+    left: 62%;
+}
+
+#advancedSearch {
+    color: white;
+    background-color: rgb(59, 126, 220);
+    position: absolute;
+    right: 39.6%;
+    top:375px;
+    border-radius: 5px;
+}
