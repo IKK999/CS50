@@ -1,0 +1,28 @@
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+
+class User(AbstractUser):
+    pass
+
+class Post(models.Model):
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "content": self.content,
+            "date": self.date.strftime("%b %d %Y, %I:%M %p"),
+            "author": self.author.username,
+            "likes": self.likes.count()
+        }
+
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followers")
+    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followed")
+
+class Like(models.Model):
+    liker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")

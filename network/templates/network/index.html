@@ -1,0 +1,226 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h1 style="margin: 8px;">All Posts</h1>
+
+    {% if user.is_authenticated %}
+    <div id="compose" style="border: 1px solid black; margin: 15px; padding: 8px;">
+        <h2>New Post</h2>
+        <form action="{% url 'new_post' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="content" style="font-size: 25px;">
+            <input type="submit" value="Post" class="buttons">
+        </form>
+    </div>
+    {% endif %}
+
+    <div id="profile">
+        {% if author %}
+            <h2 id="profile_name" style="margin: 8px;">{{ author.username }}</h2>
+            <p id="follow_info" style="margin: 8px;">
+                Content
+            </p>
+            {% if user.is_authenticated and user.username != author.username %}
+                <button onclick="flip_status()" style="background-color: rgb(114, 197, 220); color: white; border-radius: 10%; margin: 8px;">
+                    Content
+                </button>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div id="posts">
+    </div>
+
+    <div id="pagination" style="text-align: center; margin: 15px;">
+        <button class="buttons" id="prev">Previous</button>
+        <span id="current_page">Page</span>
+        <button class="buttons" id="next">Next</button>
+    </div>
+
+    <script>
+        page = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            load_posts();
+
+            document.querySelector("form").onsubmit = () => {
+                load_posts();
+            }
+
+            load_pagination();
+
+            document.querySelector("#prev").onclick = () => {
+                page--;
+                load_posts();
+                load_pagination();
+            }
+
+            document.querySelector("#next").onclick = () => {
+                page++;
+                load_posts();
+                load_pagination();
+            }
+
+        });
+
+        document.querySelector("h1").innerHTML = "{{ heading }}";
+        if (document.querySelector("h1").innerHTML === "All Posts") {
+            document.querySelector("#compose").style.display = "block";
+            document.querySelector("#profile").style.display = "none";
+            document.querySelector("#posts").style.display = "block";
+        }
+        else if (document.querySelector("h1").innerHTML === "Profile") {
+            document.querySelector("#compose").style.display = "none";
+            document.querySelector("#profile").style.display = "block";
+            document.querySelector("#posts").style.display = "block";
+        }
+        else {
+            document.querySelector("#compose").style.display = "none";
+            document.querySelector("#profile").style.display = "none";
+            document.querySelector("#posts").style.display = "block";
+        }
+
+        if ("{{ author }}") {
+            follow_count("{{ author }}");
+            follow_status("{{ author }}");
+        }
+
+        function load_posts() {
+            element_posts = document.querySelector("#posts");
+            element_posts.innerHTML = "";
+            name = "";
+            section = document.querySelector("h1").innerHTML;
+            if (section === "Profile") {
+                name = document.querySelector("#profile_name").innerHTML;
+            }
+            else {
+                name = "none";
+            }
+            fetch(`../posts/${section}/${page}/${name}`)
+            .then(response => response.json())
+            .then(data_posts => {
+                for (let i = 0; i < data_posts.length; i++) {
+                    element_posts.innerHTML = element_posts.innerHTML + `
+                        <div style="border: 1px solid black; margin: 15px; padding: 8px;">
+                            <h6><a href="../profile/${data_posts[i].author}" style="color: black;">${data_posts[i].author}</a></h6>
+
+                            ${"{{ user.is_authenticated }}" && data_posts[i].author == "{{ user.username }}" ? `<button onclick=\"edit_post(${i})\" class=\"buttons\"">Edit</button>` : ""}
+
+                            <p id=\"page${page}post${i}\">${data_posts[i].content}</p>
+                            <p>${data_posts[i].date}</p>
+                            <button id=\"like_page${page}post${i}\" onclick=\"switch_status(${i})\" class="likes" style="background-color: grey;">👍 ${data_posts[i].likes}</button>
+                        </div>
+                        `;
+                    is_liked(i);
+                }
+            });
+        }
+
+        function follow_count(author) {
+            fetch(`../follow_count/${author}`)
+            .then(response => response.json())
+            .then(counts => {
+                document.querySelector("#follow_info").innerHTML = `Followers: ${counts.followers} | Following: ${counts.following}`;
+            });
+        }
+
+        function follow_status(author) {
+            fetch(`../follow_status/${author}`)
+            .then(response => response.json())
+            .then(follow => {
+
+                if (follow == false) {
+                    document.querySelector("button").innerHTML = "Follow";
+                }
+                else {
+                    document.querySelector("button").innerHTML = "Unfollow";
+                }
+            });
+        }
+
+        function flip_status() {
+            author = document.querySelector("#profile_name").innerHTML;
+            fetch(`../flip_status/${author}`)
+            .then(
+                window.location.reload()
+            );
+        }
+
+        function load_pagination() {
+            current_page = document.querySelector("#current_page");
+            current_page.innerHTML = `${page}`;
+
+            name = "";
+            section = document.querySelector("h1").innerHTML;
+            if (section === "Profile") {
+                name = document.querySelector("#profile_name").innerHTML;
+            }
+            else {
+                name = "none";
+            }
+            fetch(`../pages_present/${section}/${page}/${name}`)
+            .then(response => response.json())
+            .then(results => {
+                prev = results[0]
+                next = results[1]
+                button_prev = document.querySelector("#prev");
+                button_next = document.querySelector("#next");
+                button_prev.disabled = !prev;
+                button_next.disabled = !next;
+            });
+        }
+
+        function edit_post(i) {
+            content = document.querySelector(`#page${page}post${i}`);
+            content.innerHTML = `
+                <form action="">
+                    <input id=\"user_changes\" type="text" value="${content.innerHTML}" style="font-size: 18px;">
+                    <button onclick=\"save_changes(${i})\" class=\"buttons\">Save</button>
+                </form>
+                `;
+        }
+
+        function save_changes(i) {
+            content = document.querySelector("#user_changes").value;
+            fetch(`edit_post/${section}/${page}/${name}/${i}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    content: content
+                })
+            })
+            .then(
+                document.querySelector(`#page${page}post${i}`).innerHTML = content
+            );
+        }
+
+        function switch_status(i) {
+            fetch(`../switch_status/${section}/${page}/${name}/${i}`)
+            .then(response => response.json())
+            .then(is_like => {
+                if (is_like == true) {
+                    document.querySelector(`#like_page${page}post${i}`).innerHTML = `👍 ${parseInt(document.querySelector(`#like_page${page}post${i}`).innerHTML.split(" ")[1]) + 1}`;
+                    document.querySelector(`#like_page${page}post${i}`).style.backgroundColor = "pink";
+                }
+                else {
+                    document.querySelector(`#like_page${page}post${i}`).innerHTML = `👍 ${parseInt(document.querySelector(`#like_page${page}post${i}`).innerHTML.split(" ")[1]) - 1}`;
+                    document.querySelector(`#like_page${page}post${i}`).style.backgroundColor = "gray";
+                }
+            });
+        }
+
+        function is_liked(i) {
+            fetch(`../is_liked/${section}/${page}/${name}/${i}`)
+            .then(response => response.json())
+            .then(is_liked => {
+                if (is_liked == true) {
+                    document.querySelector(`#like_page${page}post${i}`).style.backgroundColor = "pink";
+                }
+                else {
+                    document.querySelector(`#like_page${page}post${i}`).style.backgroundColor = "gray";
+                }
+            });
+        }
+
+    </script>
+{% endblock %}
