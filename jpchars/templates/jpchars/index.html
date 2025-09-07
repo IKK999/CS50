@@ -1,0 +1,94 @@
+{% extends "jpchars/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h1 id="greeting">ようこそ！</h1>
+    <div id="main-interface">
+        <h2 id="header">JpChars - Your Kawaii Teacher</h2>
+        <button class="btn btn-sm btn-outline-primary" id="menu" style="margin: 1px;">Main Menu</button>
+        <button class="btn btn-sm btn-outline-primary" id="hiragana" style="margin: 1px;">Hiragana</button>
+        <button class="btn btn-sm btn-outline-primary" id="katakana" style="margin: 1px;">Katakana</button>
+        <button class="btn btn-sm btn-outline-primary" id="profile" style="margin: 1px;">Profile</button>
+        <button class="btn btn-sm btn-outline-primary" id="about" style="margin: 1px;">About</button>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    </div>
+
+    <div class="sections" id="menu-view" style="display: none;">
+
+        <div id="add">
+            <h3>JpChars will help you master <b>Hiragana</b> and <b>Katakana</b></h3>
+        </div>
+
+        <div id="kyoto">
+            <img src="https://imgs.search.brave.com/MAuhocqftaPIjAAl6ZSrUM278KvColB3Hf_HT6AqCwE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c3RhdGUuZ292L3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDE5LzA0/L0phcGFuLTIxMDd4/MTQwNi5qcGc">
+        </div>
+
+        <div id="advice">
+            <h4><br>We suggest you to start from <b>Hiragana</b> first, and then continue to <b>Katakana</b></h4>
+        </div>
+
+        <div id="tokyo">
+            <img src="https://imgs.search.brave.com/gxEkNQAYregDaquj-2JUEJKKa3rjWkZNfuqkKqcbE3A/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNTA1/Nzk3MzY4L3Bob3Rv/L3NoaWJ1eWEtc2hv/cHBpbmctZGlzdHJp/Y3QtdG9reW8tamFw/YW4uanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPXBUSGlFV2Q0/TVFxVTNlN2xXYnhB/LUViNzNWRzRENVV6/N0F2YmVOWUhLTGc9">
+        </div>
+
+    </div>
+
+    <div id="result-notifier" style="display: none;">
+    </div>
+
+    <div class="sections" id="hiragana-view" style="display: none;">
+    </div>
+
+    <div class="sections" id="katakana-view" style="display: none;">
+    </div>
+
+    <div class="sections" id="profile-view" style="display: none;">
+        <h3>{{ user.username }}</h3>
+        <ul>
+            <li>
+                <h4 id="hiragana-level"></h4>
+                <div class="level-parent">
+                    <div class="level-indicator"></div>
+                    <p id="hiragana-completion"></p>
+                    <div class="level-indication" id="hiragana-indication"></div>
+                </div>
+            </li>
+            <br>
+            <li>
+                <h4 id="katakana-level"></h4>
+                <div class="level-parent">
+                    <div class="level-indicator"></div>
+                    <p id="katakana-completion"></p>
+                    <div class="level-indication" id="katakana-indication"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sections" id="about-view" style="display: none;">
+        <h3>JpChars was developed by Islambek since he had a hard time learning <b>Hiragana</b> and <b>Katakana</b> back in the day</h3>
+        <h4><br>Features of each</h4>
+        <ul>
+            <li>
+                <h5><b>Hiragana</b></h5>
+                <h6>Has 46 letters</h6>
+                <h6>Used for Japanese words</h6>
+                <h6>Example: こんにちは - *konnichiwa - hello</h6>
+            </li>
+            <li>
+                <h5><b>Katakana</b></h5>
+                <h6>Has 46 letters</h6>
+                <h6>Used for Foreign words</h6>
+                <h6>Example: ラーメン - *raamen - ramen</h6>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sections" id="exercise-view" style="display: none;">
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'jpchars/index.js' %}"></script>
+{% endblock %}
