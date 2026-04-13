@@ -2,7 +2,7 @@
 
 A Twitter-style social network built with Django. Users can register/login, create posts, follow/unfollow other users, like posts, and browse feeds with pagination. The UI is server-rendered with a thin JavaScript layer that fetches JSON from Django endpoints to deliver an app-like experience (inline editing, live like toggles, and page navigation without full reloads).
 
-## Why this project is employer-relevant
+## Why this project is relevant
 
 - **Full-stack fundamentals**: database modeling, authentication, server-rendered templates, and REST-like JSON endpoints.
 - **Interactive UI without a frontend framework**: a clean demonstration of using `fetch()` + Django to build dynamic behavior.
@@ -101,27 +101,3 @@ python manage.py createsuperuser
 ```
 
 Admin panel: `http://127.0.0.1:8000/admin/`.
-
-## Notes on implementation
-
-- **Authorization**: editing is restricted to the post’s author (checked server-side in `edit_post`).
-- **Pagination**: performed on the server via `Paginator(..., 10)`; the UI queries whether next/previous pages exist.
-- **UI behavior**: the feed is rendered client-side from JSON (fast refreshes, no template duplication for each feed).
-
-## What I’d improve next (roadmap)
-
-- **Stable post identifiers in routes**: edit/like endpoints currently address posts by “index on a page”; using `post_id` would be more robust.
-- **CSRF protection for `PUT`**: add CSRF token header handling for non-GET requests in `fetch()`.
-- **Stronger API semantics**: use `POST/DELETE` for follow/like toggles, and return updated counts in responses.
-- **Test coverage**: add unit tests for follow/like/edit permissions and pagination edge cases.
-- **Production readiness**: move `SECRET_KEY` to environment variables and configure `ALLOWED_HOSTS`.
-
-## Screenshots / demo
-
-Add screenshots or a short demo video/gif here to showcase:
-
-- All Posts feed + pagination
-- Profile page with follow button and follower counts
-- Inline post editing
-- Like/unlike interactions
-
