@@ -1,4 +1,4 @@
-### Search Website (Google-style) — CS50W Project 0
+### Search Website (Google-style)
 
 A clean, multi-page **search UI** that routes users to real Google results using the correct query parameters for:
 
@@ -11,7 +11,7 @@ This project demonstrates solid fundamentals in **semantic page structure, CSS l
 
 ---
 
-### Why this is interesting (for employers)
+### Why this is interesting
 
 - **Real integration surface**: the UI doesn’t “fake” results—it constructs URLs that Google understands and navigates there.
 - **Multiple product flows**: separate pages for standard, image, and advanced search—mirrors a real-world feature split.
@@ -73,36 +73,8 @@ Then open `http://localhost:8000` and click into `index.html`.
 
 ---
 
-### UX notes / improvement roadmap
-
-If you’re reviewing this as an employer, here are a few concrete, high-impact next steps I would tackle to bring it closer to production-quality:
-
-- **Accessibility**: add proper `<label>` elements (or `aria-label`) for inputs; ensure keyboard-first submission works naturally.
-- **HTML semantics**: avoid nesting `<button>` inside `<a>`; use either a styled link or a button with navigation, not both.
-- **URL safety**: encode user input with `encodeURIComponent()` to handle spaces and special characters robustly.
-- **Responsive layout**: replace absolute positioning with a flex/grid layout to scale cleanly across screen sizes.
-
----
-
 ### Tech stack
 
 - **HTML5**
 - **CSS3**
 - **JavaScript (vanilla)**
-
----
-
-### Screenshots (optional)
-
-Add screenshots to a `screenshots/` folder and link them here:
-
-- `screenshots/home.png`
-- `screenshots/image.png`
-- `screenshots/advanced.png`
-
----
-
-### Author
-
-Built by **Islambek Karagulov** as part of **CS50’s Web Programming with Python and JavaScript (Project 0)**.
-
