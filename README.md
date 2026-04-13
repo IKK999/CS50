@@ -1,4 +1,4 @@
-# Tic-Tac-Toe AI (Minimax) — Unbeatable Opponent
+# Tic-Tac-Toe AI (Minimax)
 
 An interactive Tic-Tac-Toe game with a **perfect-play AI**. The computer uses the **Minimax decision algorithm** to evaluate future game states and always chooses an optimal move—meaning it **never loses** (win or draw with correct play).
 
