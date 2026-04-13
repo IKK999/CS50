@@ -167,39 +167,7 @@ Then open `http://127.0.0.1:8000/` and create an account.
 
 ---
 
-## Screenshots (recommended for employers)
-
-Add images here once you’ve captured them:
-
-- `docs/inbox.png`
-- `docs/email-detail.png`
-- `docs/compose.png`
-
-Then embed them in this README.
-
----
-
-## Engineering notes (honest trade-offs)
-
-This is a course-style project optimized for clarity:
-
-- **SQLite + committed `db.sqlite3`** is fine for demos; production would use Postgres and environment-specific config.
-- `DEBUG = True` and a hardcoded `SECRET_KEY` exist in `project3/settings.py` (safe for learning, not for deployment).
-- JSON endpoints use `@csrf_exempt` in `mail/views.py`; production would keep CSRF protection (or use token-based auth).
-
----
-
-## What I’d improve next (if productizing)
-
-- Add `requirements.txt` + pinned dependencies
-- Better UI polish and accessibility (ARIA, keyboard nav)
-- Centralized client-side state management (still possible without frameworks)
-- Robust client-side error handling (surface API errors in the UI)
-- Deployment-ready settings (env vars, allowed hosts, static collection)
-
----
-
-## Quick code tour (files employers might open first)
+## Quick code tour
 
 - **Backend**
   - `mail/views.py`: JSON API + auth views
