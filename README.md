@@ -52,7 +52,7 @@ This is a static site—no install step required.
 - **Option B (recommended)**: serve as a static site (avoids any browser file URL quirks).
 
 ```bash
-cd "Project 0"
+cd "search"
 python3 -m http.server 8000
 ```
 
