@@ -137,25 +137,3 @@ python manage.py createsuperuser
 ```
 
 Admin lives at `/admin/`.
-
-## Screenshots
-
-Add screenshots to make this README “recruiter skim-friendly”:
-
-- `docs/screenshots/home.png` (Active Listings)
-- `docs/screenshots/listing.png` (Listing detail + bids/comments)
-- `docs/screenshots/create.png` (Create listing)
-
-## What I’d improve next (roadmap ideas)
-
-- **Switch `owner_id` to a proper `ForeignKey`** on `Listing` for referential integrity
-- Add **forms** (Django Forms) for validation + cleaner templates
-- Add **tests** for bidding rules, watchlist toggling, and auction close behavior
-- Add pagination and better responsive UI for large numbers of listings
-- Add Docker + pinned dependencies (`requirements.txt`) for fully reproducible setup
-
-## Notes for reviewers
-
-- This project is intentionally simple and readable, focusing on core Django patterns: models, views, templates, URL routing, and auth.
-- If you plan to deploy publicly, **rotate the Django `SECRET_KEY`** and set `DEBUG=False` with proper `ALLOWED_HOSTS`.
-
