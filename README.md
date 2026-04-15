@@ -4,7 +4,7 @@ An eBay-style commerce web app built with **Django**: users can register/login, 
 
 This project is a strong “full-stack fundamentals” portfolio piece: **relational modeling**, **server-rendered UI**, **authentication**, **CRUD + business rules**, and a clean Django app structure.
 
-## Highlights (what an employer cares about)
+## Highlights
 
 - **End-to-end product flow**: listings → bidding → closing auctions → winner messaging.
 - **Relational data modeling**: custom `User` model + `Listing`, `Bid`, `Comment` with many-to-many relationships.
