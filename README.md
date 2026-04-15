@@ -1,4 +1,4 @@
-### Search Website (Google-style)
+# Search Website (Google-style)
 
 A clean, multi-page **search UI** that routes users to real Google results using the correct query parameters for:
 
@@ -11,7 +11,7 @@ This project demonstrates solid fundamentals in **semantic page structure, CSS l
 
 ---
 
-### Why this is interesting
+## Why this is interesting
 
 - **Real integration surface**: the UI doesn’t “fake” results—it constructs URLs that Google understands and navigates there.
 - **Multiple product flows**: separate pages for standard, image, and advanced search—mirrors a real-world feature split.
@@ -19,7 +19,7 @@ This project demonstrates solid fundamentals in **semantic page structure, CSS l
 
 ---
 
-### Pages
+## Pages
 
 - **`index.html`**: Standard search + “I’m Feeling Lucky”, with navigation to the other modes.
 - **`image.html`**: Image search mode.
@@ -27,7 +27,7 @@ This project demonstrates solid fundamentals in **semantic page structure, CSS l
 
 ---
 
-### How it works (technical overview)
+## How it works (technical overview)
 
 The behavior lives in **`script.js`**, which reads user input(s) from the DOM and sets `window.location.href` to Google endpoints:
 
@@ -44,7 +44,7 @@ Styling is shared via **`styles.css`**.
 
 ---
 
-### Run locally
+## Run locally
 
 This is a static site—no install step required.
 
@@ -60,7 +60,7 @@ Then open `http://localhost:8000` and click into `index.html`.
 
 ---
 
-### Project structure
+## Project structure
 
 ```text
 .
@@ -73,7 +73,7 @@ Then open `http://localhost:8000` and click into `index.html`.
 
 ---
 
-### Tech stack
+## Tech stack
 
 - **HTML5**
 - **CSS3**
