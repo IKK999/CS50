@@ -14,8 +14,7 @@ A search-based AI system that computes the shortest connection between actors vi
 ---
 
 ## Features
-- Graph-based problem modeling
-- Transforms real-world data into a connected network
+- Graph-based problem modeling - Transforms real-world data into a connected network
 - Breadth-First Search (BFS)
 - Guarantees shortest path in an unweighted graph
 - State-space exploration
