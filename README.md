@@ -6,7 +6,7 @@ This project was built to demonstrate practical full-stack fundamentals: **auth*
 
 ---
 
-## Highlights (what a recruiter should notice)
+## Highlights
 
 - **End-to-end feature delivery**: authentication → inbox/sent/archive → compose/reply → read/archive state.
 - **Separation of concerns**: Django serves HTML shell + JSON endpoints; JS owns SPA-style rendering and interactions.
