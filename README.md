@@ -15,14 +15,10 @@ A search-based AI system that computes the shortest connection between actors vi
 
 ## Features
 - Graph-based problem modeling - Transforms real-world data into a connected network
-- Breadth-First Search (BFS)
-- Guarantees shortest path in an unweighted graph
-- State-space exploration
-- Systematically explores neighbors with frontier tracking
-- Path reconstruction
-- Backtracks through parent nodes to build the solution path
-- Data ingestion pipeline
-- Parses and links CSV datasets (people, movies, stars)
+- Breadth-First Search (BFS) - Guarantees shortest path in an unweighted graph
+- State-space exploration - Systematically explores neighbors with frontier tracking
+- Path reconstruction - Backtracks through parent nodes to build the solution path
+- Data ingestion pipeline - Parses and links CSV datasets (people, movies, stars)
 
 ---
 
