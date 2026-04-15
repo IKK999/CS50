@@ -32,7 +32,5 @@ Play against the AI in real time
 
 ## Tech Stack
 Python 3.x
-
 Pygame
-
 Core concepts: Minimax, recursion, game theory
